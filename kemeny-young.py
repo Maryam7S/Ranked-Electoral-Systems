@@ -28,6 +28,7 @@ def Kemeny_Young(pairwise_ballot, can_list, N_candidates):
 
     #score all possible rankings
     all_rankings=list(itertools.permutations(can_list))
+    print(all_rankings)
     
     score_table = []
     for ranking in all_rankings:  #ex [' Bruno', 'Cardi', 'Rocky']
@@ -40,12 +41,21 @@ def Kemeny_Young(pairwise_ballot, can_list, N_candidates):
             b=i
             while b < N_candidates-1:
                 b += 1
-                score = score+pairwise_ballot[ranking_indices[i], ranking_indices[b]] #add number of voters who preferred i over b
+                score = int(score+pairwise_ballot[ranking_indices[i], ranking_indices[b]]) #add number of voters who preferred i over b
         score_table.append(score)
+    print(score_table)
     
 #decide winner
-    final_ranking = all_rankings[score_table.index(max(score_table))]
-    print('Final ranking is', final_ranking)
+    Max = int(max(score_table))
+    final_ranking = []
+    for m in range(len(score_table)):
+        if score_table[m] == Max:
+            final_ranking.append(all_rankings[m]) 
+
+    if len(final_ranking) > 1:
+        print('There is a tie')
+    
+    print('Final ranking(s)', final_ranking)
     return(final_ranking)
 
 ###########################################################################

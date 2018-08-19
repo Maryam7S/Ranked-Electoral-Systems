@@ -31,18 +31,51 @@ def kemeny_young(pairwise_ballot, N_candidates, candidate_order):
 #interpret results
     final_ranking_names = []
     
-    if len(final_ranking) > 1:
-        print('There is a tie')
-        
     for ranking in final_ranking:
         each_final_ranking_names = []
         for i in ranking:
             each_final_ranking_names.append(candidate_order[i])
-        final_ranking_names.append(each_final_ranking_names)
+        final_ranking_names.append(each_final_ranking_names)    
+
+#handle ties    
+    if len(final_ranking) > 1:
+        tie=True
+        print('There is a tie')
+
+        tied_winners = []
+        for i in range(len(final_ranking)):
+            tied_winners.append(final_ranking[i][0])
+            tied_winners=list(set(tied_winners))
+
+        tie_score_table = []
+        for runner in tied_winners:  #ex position 0, which holds candidate 1
+            tie_score = 0
+            opponent_list = list(range(N_candidates))
+            opponent_list.remove(runner)
+            for opponent in opponent_list:
+                tie_score += int(pairwise_ballot[runner, opponent]) #add number of voters who preferred runner over opponent, retrieved from summed ballot
+        tie_score_table.append(tie_score)
+
+        tie_breaker = []
+        for tie_score_index in range(len(tie_score_table)):
+            if tie_score_table[tie_score_index] == int(max(tie_score_table)):
+                tie_breaker.append(tied_winners[tie_score_index]) 
+
+
+    #interpret tie
+        final_winner = []
+    
+        for winner in tie_breaker:
+            final_winner.append(candidate_order[winner])
+
+
     
     print('Final ranking(s) : ', final_ranking_names)
-    print(all_rankings)
+    print(final_ranking)
     print(pairwise_ballot)
-    return(final_ranking_names)
+    print(tied_winners)
+    print(tie_breaker)
+    print(final_winner)
+    return(final_ranking_names, tied_winners, final_winner)
 
 

@@ -26,4 +26,4 @@ with open('candidate list.txt') as f: #import candidate order from txt file
     
 #####################################################
 x=reduce_votes(votes, len(candidate_order))
-kemeny_young(x[0], x[1], candidate_order)
+KY= kemeny_young(x[0], x[1], candidate_order)

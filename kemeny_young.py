@@ -41,6 +41,8 @@ def kemeny_young(pairwise_ballot, N_candidates, candidate_order):
         final_ranking_names.append(each_final_ranking_names)
     
     print('Final ranking(s) : ', final_ranking_names)
+    print(all_rankings)
+    print(pairwise_ballot)
     return(final_ranking_names)
 
 

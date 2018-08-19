@@ -8,21 +8,21 @@
 
 from numpy import *
 import csv
+import sys
 from reduce_votes import reduce_votes
 from kemeny_young import kemeny_young
 
 ###########################################################################
 #imagine that an organization is voting on a candidate to fill a vacancy on its board of directors
 with open('cast votes.csv', 'r') as f: #import votes from CSV file
-    reader = csv.reader(f)
-    votes = list(reader)
-votes=votes[0]
+    reader = csv.reader(f, delimiter=' ')
+    votes = []
+    for row in reader:
+        votes.append(row)
 
 with open('candidate list.txt') as f: #import candidate order from txt file
     for line in f:
         candidate_order = line.split(' ')
-
-N_candidates = len(candidate_order)
     
 #####################################################
 x=reduce_votes(votes, len(candidate_order))

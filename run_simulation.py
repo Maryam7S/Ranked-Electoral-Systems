@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 ###########shebang line, tells shell what to do with file
 
-
 #Kemeny-Young method of voting
 #The kemeny-young method is a condorcet method of voting. It satisfies the criterias
 #of unrestricted domain and pareto efficiency but fails independence of irrelevant alternatives
@@ -26,4 +25,9 @@ with open('candidate list.txt') as f: #import candidate order from txt file
     
 #####################################################
 x=reduce_votes(votes, len(candidate_order))
-KY= kemeny_young(x[0], x[1], candidate_order)
+output=kemeny_young(x[0], x[1], candidate_order)
+
+#print('Final ranking(s): ', output['finalRankingNames'])
+if output['tie'] == True:
+    print('There is a tie.')
+#    print('The final winner is', output['finalWinner'])
